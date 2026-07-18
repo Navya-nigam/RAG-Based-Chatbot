@@ -314,13 +314,13 @@ This project demonstrates practical implementation of:
 
 ---
 
-# 👩‍💻 Author
+## 👩‍💻 Author
 
 **Navya Nigam**
 
 B.Tech Computer Science (2022–2026)
 
-Interested in Machine Learning, NLP, Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), and AI Engineering.
+Interested in Machine Learning, Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), and AI Engineering.
 
 GitHub: https://github.com/Navya-nigam
 
