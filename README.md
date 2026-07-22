@@ -1,8 +1,8 @@
 # 📚 Retrieval-Augmented Generation (RAG) Pipeline for PDF Question Answering
 
-An end-to-end Retrieval-Augmented Generation (RAG) pipeline that answers user queries from PDF documents using semantic search and Large Language Models (LLMs).
+An end-to-end **Retrieval-Augmented Generation (RAG)** application that answers user queries from PDF documents using **semantic search** and **Large Language Models (LLMs)**.
 
-The project extracts text from PDF documents, splits them into manageable chunks, converts each chunk into dense vector embeddings using Sentence Transformers, stores the embeddings in ChromaDB, retrieves the most relevant information through semantic similarity search, and generates context-aware responses using the Groq LLM.
+The project extracts text from PDF documents, splits it into semantic chunks, generates dense vector embeddings using **Sentence Transformers**, stores the embeddings in **ChromaDB**, retrieves the most relevant document chunks through semantic search, and generates context-aware responses using the **Groq LLM**. The application also provides an interactive **Streamlit** web interface for asking questions.
 
 ---
 
@@ -15,6 +15,7 @@ The project extracts text from PDF documents, splits them into manageable chunks
 - 🔍 Retrieve relevant document chunks using semantic similarity search
 - 📑 Top-K document retrieval
 - 🤖 Context-aware answer generation using Groq LLM
+- 🌐 Interactive Streamlit web interface
 - 🏗️ Modular RAG pipeline implementation
 
 ---
@@ -28,53 +29,53 @@ The project extracts text from PDF documents, splits them into manageable chunks
                   PDF Loader (PyMuPDF)
                            │
                            ▼
-                     Text Chunking
+                  Text Chunking
                            │
                            ▼
-        SentenceTransformer Embedding Model
+             SentenceTransformer Embeddings
                            │
                            ▼
-                   Dense Vector Embeddings
+               ChromaDB Vector Store
                            │
                            ▼
-                ChromaDB Vector Database
-                           ▲
-                           │
-                    User Question
+              User Question (Embedding)
                            │
                            ▼
-             Query Embedding Generation
+               Semantic Similarity Search
                            │
                            ▼
-            Semantic Similarity Search
+             Top-K Relevant Document Chunks
                            │
                            ▼
-               Top-K Relevant Chunks
+                    Groq Large Language Model
                            │
                            ▼
-                 Prompt Construction
-                           │
-                           ▼
-                 Groq Large Language Model
-                           │
-                           ▼
-                   Generated Response
+                    Context-Aware Answer
 ```
 
 ---
 
 # 🛠️ Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| Language | Python |
-| Framework | LangChain |
-| Embedding Model | Sentence Transformers (all-MiniLM-L6-v2) |
-| Vector Database | ChromaDB |
-| LLM | Groq (Llama-3.1-8B-Instant) |
-| PDF Processing | PyMuPDF |
-| Numerical Computing | NumPy |
-| Environment Variables | python-dotenv |
+### Programming Language
+
+- Python
+
+### Frameworks & Libraries
+
+- Streamlit
+- LangChain
+- Sentence Transformers
+- ChromaDB
+- PyMuPDF
+- PyPDF
+- NumPy
+- python-dotenv
+
+### LLM
+
+- Groq API
+- Llama 3.1 8B Instant
 
 ---
 
@@ -83,26 +84,27 @@ The project extracts text from PDF documents, splits them into manageable chunks
 ```text
 RAG-Based-Chatbot/
 │
+├── app.py                     # Streamlit application
+├── embedding.py               # Embedding generation
+├── vector_store.py            # ChromaDB operations
+├── retriever.py               # Semantic retrieval
+├── rag.py                     # RAG pipeline
+├── llm.py                     # Groq LLM integration
 ├── notebook/
-│   └── document.ipynb
-│
+│   └── document.ipynb         # PDF indexing notebook
 ├── data/
-│   ├── pdfs/
-│   └── vector_store/
-│
-├── .env.example
-├── .gitignore
-├── README.md
-├── requirements.txt
+│   ├── pdf/                   # PDF documents
+│   └── vector_store/          # ChromaDB database
+├── requirement.txt
 ├── pyproject.toml
-└── main.py
+└── README.md
 ```
 
 ---
 
 # ⚙️ Installation
 
-## 1. Clone the repository
+Clone the repository
 
 ```bash
 git clone https://github.com/Navya-nigam/RAG-Based-Chatbot.git
@@ -110,178 +112,56 @@ git clone https://github.com/Navya-nigam/RAG-Based-Chatbot.git
 cd RAG-Based-Chatbot
 ```
 
----
-
-## 2. Create a virtual environment
-
-### Windows
+Install the required packages
 
 ```bash
-python -m venv .venv
-
-.venv\Scripts\activate
+pip install -r requirement.txt
 ```
 
-### Linux / macOS
+Create a `.env` file in the project root
 
-```bash
-python3 -m venv .venv
-
-source .venv/bin/activate
+```text
+GROQ_API_KEY=your_api_key_here
 ```
 
 ---
 
-## 3. Install dependencies
+# ▶️ Running the Project
 
-```bash
-pip install -r requirements.txt
-```
+### Step 1: Index the PDF documents
 
----
+Run the notebook:
 
-## 4. Create a `.env` file
-
-```env
-GROQ_API_KEY=your_groq_api_key_here
-```
-
----
-
-## 5. Run the project
-
-Open
-
-```
+```text
 notebook/document.ipynb
 ```
 
-and execute the notebook cells sequentially.
+This will:
 
----
+- Load PDF files
+- Create text chunks
+- Generate embeddings
+- Store embeddings in ChromaDB
 
-# 🔄 RAG Pipeline Workflow
+### Step 2: Start the chatbot
 
-### Step 1 — Load PDF
-
-The PDF document is loaded using **PyMuPDF**.
-
----
-
-### Step 2 — Text Chunking
-
-The extracted text is divided into smaller chunks to improve retrieval accuracy and fit within the LLM context window.
-
----
-
-### Step 3 — Generate Embeddings
-
-Each text chunk is converted into a dense vector representation using the **SentenceTransformer all-MiniLM-L6-v2** model.
-
----
-
-### Step 4 — Store in ChromaDB
-
-The embeddings, document text, and metadata are stored in a persistent ChromaDB vector database.
-
----
-
-### Step 5 — User Query
-
-When a user asks a question, the query is converted into an embedding using the same embedding model.
-
----
-
-### Step 6 — Semantic Retrieval
-
-The query embedding is compared against stored document embeddings using cosine similarity.
-
-The top-K most relevant document chunks are retrieved.
-
----
-
-### Step 7 — Prompt Construction
-
-The retrieved document chunks are combined with the user's question to create a prompt.
-
----
-
-### Step 8 — Response Generation
-
-The prompt is passed to the Groq-hosted Llama model, which generates the final context-aware answer.
-
----
-
-# 📦 Main Components
-
-### PDF Processing
-
-- PDF Loading
-- Text Extraction
-
----
-
-### Embedding Module
-
-- SentenceTransformer
-- all-MiniLM-L6-v2
-
----
-
-### Vector Store
-
-- ChromaDB
-- Persistent Storage
-- Document Metadata
-
----
-
-### Retrieval Module
-
-- Query Embedding
-- Semantic Similarity Search
-- Top-K Retrieval
-
----
-
-### LLM Module
-
-- Groq API
-- Llama-3.1-8B-Instant
-- Prompt-based Response Generation
-
----
-
-# 💬 Example Queries
-
-```
-What is self-attention?
-
-Explain the attention mechanism.
-
-What is Unified Multi-task Learning Framework?
-
-Summarize the uploaded paper.
-
-What are Hard Negative Mining techniques?
-
-Explain transformer architecture.
+```bash
+streamlit run app.py
 ```
 
+Open the URL shown in your terminal (usually `http://localhost:8501`).
+
 ---
 
-# 📦 Dependencies
+# 💬 Example
 
-- langchain
-- langchain-core
-- langchain-community
-- langchain-groq
-- chromadb
-- sentence-transformers
-- pymupdf
-- pypdf
-- numpy
-- python-dotenv
+**Question**
+
+> What is the HLER architecture?
+
+**Answer**
+
+> The HLER architecture decomposes the empirical research workflow into eight specialised agent roles coordinated by an Orchestrator that maintains the workflow state and generated artefacts.
 
 ---
 
@@ -298,19 +178,20 @@ This project demonstrates practical implementation of:
 - Large Language Models
 - Document Question Answering
 - Information Retrieval
+- Streamlit Application Development
 
 ---
 
 # 🔮 Future Improvements
 
-- Streamlit Web Interface
 - Multiple PDF Support
 - Source Citation
 - Conversational Memory
 - Hybrid Search (Keyword + Vector Search)
-- Reranking Models
+- Cross-Encoder Reranking
 - Docker Containerization
 - Cloud Deployment
+- User Authentication
 
 ---
 
