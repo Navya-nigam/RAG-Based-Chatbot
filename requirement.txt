@@ -9,3 +9,4 @@ chromadb
 pinecone
 langchain_groq
 streamlit
+python-dotenv

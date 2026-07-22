@@ -20,44 +20,33 @@ from retriever import RAGRetriever
 from llm import GroqLLM
 from rag import rag_simple
 
+
 # ---------------------------------------------------------------------
 # Load Environment Variables
 # ---------------------------------------------------------------------
 
-# Load the environment variables from the .env file.
-# The .env file stores the Groq API key securely.
 load_dotenv()
+
 
 # ---------------------------------------------------------------------
 # Initialize the RAG Components
 # ---------------------------------------------------------------------
 
-# EmbeddingManager:
-# Generates embeddings for user queries.
-
+# Load embedding model
 embedding_manager = EmbeddingManager()
 
-# VectorStore:
-# Connects to the existing ChromaDB vector database
-# that already contains the document embeddings.
-
+# Connect to ChromaDB
 vectorstore = VectorStore()
-st.write("Documents in vector store:", vectorstore.collection.count())
 
-# RAGRetriever:
-# Retrieves the most relevant document chunks
-# from the vector database.
-
+# Initialize retriever
 rag_retriever = RAGRetriever(
     vectorstore,
     embedding_manager
 )
 
-# GroqLLM:
-# Loads the Groq Large Language Model
-# used for answer generation.
-
+# Load Groq LLM
 groq_llm = GroqLLM()
+
 
 # ---------------------------------------------------------------------
 # Streamlit User Interface
@@ -71,13 +60,10 @@ st.set_page_config(
 
 st.title("📚 RAG-Based Chatbot")
 
-st.write(
-    "Ask a question related to the uploaded document."
-)
+st.write("Ask a question related to the uploaded document.")
 
-question = st.text_input(
-    "Enter your question"
-)
+question = st.text_input("Enter your question")
+
 
 # ---------------------------------------------------------------------
 # Generate Response

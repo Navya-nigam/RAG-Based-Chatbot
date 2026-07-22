@@ -27,8 +27,8 @@ class RAGRetriever:
         Returns:
             List of dictionaries containing retrieved documents and metadata
         """
-        print(f"Retrieving documents for query: '{query}'")
-        print(f"Top K: {top_k}, Score threshold: {score_threshold}")
+        #print(f"Retrieving documents for query: '{query}'")
+        #print(f"Top K: {top_k}, Score threshold: {score_threshold}")
         
         # Generate query embedding
         query_embedding = self.embedding_manager.generate_embeddings([query])[0]
@@ -51,17 +51,15 @@ class RAGRetriever:
                 ids = results['ids'][0]
                 
                 for i, (doc_id, document, metadata, distance) in enumerate(zip(ids, documents, metadatas, distances)):
-                    # Convert distance to similarity score (ChromaDB uses cosine distance)
                     similarity_score = 1 - distance
-                    
-                    if similarity_score >= score_threshold:
-                        retrieved_docs.append({
-                            'id': doc_id,
-                            'content': document,
-                            'metadata': metadata,
-                            'similarity_score': similarity_score,
-                            'distance': distance,
-                            'rank': i + 1
+                    #if similarity_score >= score_threshold:
+                    retrieved_docs.append({
+                        "id": doc_id,
+                        "content": document,
+                        "metadata": metadata,
+                        "similarity_score": similarity_score,
+                        "distance": distance,
+                        "rank": i + 1
                         })
                 
                 print(f"Retrieved {len(retrieved_docs)} documents (after filtering)")
