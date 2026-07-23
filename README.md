@@ -484,7 +484,7 @@ B.Tech Computer Science (2022–2026)
 Interested in Machine Learning, NLP, Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), and AI Engineering.
 
 GitHub: https://github.com/Navya-nigam
----
-## ⭐ If you found this project useful, consider giving it a star!
+
+⭐ If you found this project useful, consider giving it a star!
 
 
